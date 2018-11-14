@@ -1,0 +1,157 @@
+.fight-animation {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  animation: bg forwards 1s;
+}
+
+.fight-text {
+  left: 50%;
+  width: 100%;
+  margin-left: -50%;
+  text-align: center;
+  top: 30%;
+  span {
+    color: #fff;
+    font-size: 30px;
+    position: relative;
+    visibility: hidden;
+  }
+  span:first-child {
+    animation: textDown forwards 1s;
+    animation-delay: 1s;
+  }
+  span:last-child {
+    animation: textUp forwards 1s;
+    animation-delay: 1s;
+  }
+}
+
+.fight-monster, .fight-person {
+  visibility: hidden;
+  left: 50%;
+  top: 40%;
+  transition: left .3s;
+}
+
+.fight-person {
+  animation-delay: 1s;
+  animation: userRunLeft forwards 1s;
+  &.fight-left{
+    left: 45%;
+  }
+}
+
+.fight-monster {
+  width: 90px;
+  height: 90px;
+  animation-delay: 1s;
+  animation: monsterRunRight forwards 1s;
+  &.fight-right{
+    left: 55%;
+  }
+}
+
+.fight-start, .fight-escape {
+  background-color: transparent;
+  color: #fff;
+  top: 60%;
+  border: none;
+  font-size: 14px;
+  transition: all 0.3s;
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.fight-start {
+  left: 45%;
+}
+
+.fight-escape {
+  left: 55%;
+}
+
+@keyframes userRunLeft {
+  0% {
+    visibility: inherit;
+    margin-left: 230px;
+  }
+  100% {
+    visibility: inherit;
+    margin-left: 130px;
+  }
+}
+
+@keyframes monsterRunRight {
+  0% {
+    visibility: inherit;
+    margin-left: -270px;
+  }
+  100% {
+    visibility: inherit;
+    margin-left: -170px;
+  }
+}
+
+@keyframes textUp {
+  0% {
+    top: 30px;
+    visibility: inherit;
+  }
+  100% {
+    top: 0;
+    visibility: inherit;
+  }
+}
+
+@keyframes textDown {
+  0% {
+    top: -30px;
+    visibility: inherit;
+  }
+  100% {
+    top: 0;
+    visibility: inherit;
+  }
+}
+
+@keyframes bg {
+  0% {
+    opacity: 0;
+    background-color: #fff;
+  }
+  10% {
+    opacity: 1;
+    background-color: #fff;
+  }
+  20% {
+    opacity: 0;
+    background-color: #fff;
+  }
+  30% {
+    opacity: 1;
+    background-color: #fff;
+  }
+  40% {
+    opacity: 0;
+    background-color: #fff;
+  }
+  50% {
+    opacity: 1;
+    background-color: #fff;
+  }
+  60% {
+    opacity: 0;
+    background-color: #fff;
+  }
+  70% {
+    opacity: 1;
+    background-color: #fff;
+  }
+  100% {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}

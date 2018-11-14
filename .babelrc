@@ -1,0 +1,12 @@
+{
+  "presets": [
+    "es2015",
+    "es2017",
+    "stage-3",
+    "stage-0",
+    "react"
+  ],
+  "plugins": [
+    "transform-runtime"
+  ]
+}
