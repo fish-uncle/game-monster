@@ -91,7 +91,7 @@ monster.prototype.add = function (level) {
   _this.timer[index] = setInterval(function () {
     const diffX = Math.abs(game.person.info.positionX - game.monster.info[index]._positionX);
     const diffY = Math.abs(game.person.info.positionY - game.monster.info[index]._positionY);
-    if (diffX <= 20 && diffY <= 20) {
+    if (diffX <= 40 && diffY <= 40) {
       if (!game.monster.info[index]._statusAttack && game.monster.info[index]._statusAlive) {
         game.monster.info[index]._statusAttack = true;
         meet.draw(game.person.info, index);

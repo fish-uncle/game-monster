@@ -1,6 +1,14 @@
-
+# node_modules
 /node_modules/
-.DS_Store
+npm-debug.log
+yarn-error.log
+
+# mac
+/.DS_Store/
+
+# IDEA Config
 /.idea/
-/dev/
+
+# build
+/dist/
 
