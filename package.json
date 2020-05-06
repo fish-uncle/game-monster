@@ -3,14 +3,12 @@
   "version": "1.0.0",
   "description": "小怪物游戏",
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1",
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@fish/cli": "^1.0.16",
-    "auto-vers": "^1.0.3"
+    "auto-vers": "^1.0.3",
+    "postcss-pxtorem": "^5.1.1"
   },
   "scripts": {
     "build:prod": "fish build prod vue",
