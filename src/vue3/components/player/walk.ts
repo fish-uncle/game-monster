@@ -5,7 +5,7 @@ const runKey = { down: 40, left: 37, up: 38, right: 39 }
 const game: Game = Game.Instance()
 const state = reactive({ game })
 
-const start = event => {
+const start = (event, data) => {
 	if (state.game.currentPlayer.alive) {
 		if (
 			event.keyCode === runKey.left ||
@@ -17,26 +17,42 @@ const start = event => {
 		}
 		switch (event.keyCode) {
 			case runKey.left:
-				state.game.currentPlayer.x -= state.game.currentPlayer.walkSpeed
+				if (data.left - state.game.currentPlayer.walkSpeed < -state.game.currentPlayer.width) {
+					data.left = state.game.width
+				} else {
+					data.left -= state.game.currentPlayer.walkSpeed
+				}
 				state.game.currentPlayer.direction = 'left'
 				break
 			case runKey.up:
-				state.game.currentPlayer.y -= state.game.currentPlayer.walkSpeed
+				if (data.top - state.game.currentPlayer.walkSpeed < -state.game.currentPlayer.height) {
+					data.top = state.game.height
+				} else {
+					data.top -= state.game.currentPlayer.walkSpeed
+				}
 				state.game.currentPlayer.direction = 'up'
 				break
 			case runKey.right:
-				state.game.currentPlayer.x += state.game.currentPlayer.walkSpeed
+				if (data.left + state.game.currentPlayer.walkSpeed > state.game.width) {
+					data.left = -state.game.currentPlayer.width
+				} else {
+					data.left += state.game.currentPlayer.walkSpeed
+				}
 				state.game.currentPlayer.direction = 'right'
 				break
 			case runKey.down:
-				state.game.currentPlayer.y += state.game.currentPlayer.walkSpeed
+				if (data.top + state.game.currentPlayer.walkSpeed > state.game.height) {
+					data.top = -state.game.currentPlayer.height
+				} else {
+					data.top += state.game.currentPlayer.walkSpeed
+				}
 				state.game.currentPlayer.direction = 'down'
 				break
 		}
 	}
 }
 
-const stop = event => {
+const stop = (event, state, emit) => {
 	if (
 		event.keyCode === runKey.left ||
 		event.keyCode === runKey.right ||
@@ -45,6 +61,12 @@ const stop = event => {
 	) {
 		state.game.currentPlayer.direction = 'stand'
 		state.game.currentPlayer.walk = false
+		if (state.game.debug) {
+			state.game.pusLog(
+				`${state.game.currentPlayer.x},${state.game.currentPlayer.y} 移动至 ${state.left},${state.top}`,
+			)
+		}
+		emit('walk-stop', { x: state.left, y: state.top })
 	}
 }
 

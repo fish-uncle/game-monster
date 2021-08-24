@@ -9,7 +9,7 @@ import { computed, defineComponent, reactive, toRefs } from 'vue'
 import Game from '@/core/Game'
 
 export default defineComponent({
-	name: 'player',
+	name: 'log',
 	setup() {
 		const game: Game = Game.Instance()
 		const state = reactive({ game })
@@ -27,11 +27,10 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .log-box {
-	height: 100px;
-	border-bottom: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-	overflow-y: auto;
+	height: 200px;
 	padding: 10px 0;
+	overflow-y: auto;
+	border: 1px solid #ddd;
 	li {
 		align-items: center;
 		margin-bottom: 8px;
@@ -39,6 +38,10 @@ export default defineComponent({
 		span {
 			padding-left: 10px;
 			margin-right: 10px;
+			color: #333;
+		}
+		p{
+			color: #295a4c;
 		}
 	}
 }

@@ -18,7 +18,7 @@ export default defineComponent({
 			type: Number,
 		},
 	},
-	setup(props) {
+	setup(props, { emit }) {
 		const game: Game = Game.Instance()
 		const state = reactive({ left: props.x, top: props.y, game })
 
@@ -26,13 +26,15 @@ export default defineComponent({
 			const img = personImg[state.game.currentPlayer.direction]
 			return {
 				backgroundImage: `url(${img})`,
-				left: `${state.game.currentPlayer.x}px`,
-				top: `${state.game.currentPlayer.y}px`,
+				left: `${state.left}px`,
+				top: `${state.top}px`,
+				width: `${state.game.currentPlayer.width}px`,
+				height: `${state.game.currentPlayer.height}px`,
 			}
 		})
 
-		const start = walk.start
-		const stop = walk.stop
+		const start = e => walk.start(e, state)
+		const stop = e => walk.stop(e, state, emit)
 
 		onBeforeUnmount(() => {
 			off(document.documentElement, 'keydown', start)
@@ -53,10 +55,10 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .player {
+	top: 0;
 	left: 0;
 	width: 32px;
 	height: 48px;
-	top: 0;
 	background-size: 32px 48px;
 	&.walk {
 		background-size: 128px 48px;

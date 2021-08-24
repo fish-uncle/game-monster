@@ -1,4 +1,4 @@
-const array: Array<string> = [
+export default [
 	'美',
 	'俊',
 	'国',
@@ -22,5 +22,3 @@ const array: Array<string> = [
 	'文',
 	'兴',
 ]
-
-export default array[Math.floor(Math.random() * array.length)]
