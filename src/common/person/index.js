@@ -1,11 +1,7 @@
 'use strict';
 import blood from './_blood';
 import experience from './_experience';
-import position from './_position';
-import alive from './_alive';
-import information from './_information';
 import attribute from './_attribute';
-import gold from './_gold';
 import {debug} from "../../util";
 
 const personImg = require('../../imgs/person/person.png');
@@ -16,11 +12,7 @@ const person = function () {
   _this.info = {};
   blood(_this.info);
   experience(_this.info);
-  position(_this.info);
-  alive(_this.info);
-  information(_this.info);
   attribute(_this.info);
-  gold(_this.info);
 
   Object.defineProperty(_this.info, "img", {
     get: function () {
