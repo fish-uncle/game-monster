@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "commit": "git add .&&git cz",
+    "commit": "git add .&&git-cz",
     "build": "vue-cli-service build --target lib --dest dist src/build/index.ts --name dorring",
     "stylelint": "stylelint 'src/**/*.{scss,vue}' --config '.stylelintrc.js' --fix"
   },
@@ -31,7 +31,7 @@
     "@babel/plugin-transform-classes": "^7.14.2",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@commitlint/cli": "^9.1.2",
-    "@commitlint/config-conventional": "^9.1.2",
+    "@commitlint/config-conventional": "^13.1.0",
     "@prettier/plugin-pug": "^1.16.5",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
@@ -45,7 +45,9 @@
     "babel-eslint": "^8.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "commitizen": "^4.2.3",
+    "commitlint-config-cz": "^0.13.2",
     "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^6.3.0",
     "eslint": "^6.7.2",
     "eslint-plugin-flowtype": "^5.4.0",
     "eslint-plugin-import": "^2.22.1",
@@ -55,6 +57,7 @@
     "eslint-plugin-sonarjs": "^0.6.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^6.2.2",
+    "git-cz": "^4.7.6",
     "husky": "^4.3.8",
     "import-from": "^4.0.0",
     "lint-staged": "^11.1.2",
@@ -83,10 +86,9 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "node_modules/cz-customizable"
     }
   },
-  "_customHasUsedEsStandard": true,
   "lint-staged": {
     "*.{js,ts,css,vue,scss}": "prettier  --plugin-search-dir ./node_modules --config .prettierrc --write"
   }
