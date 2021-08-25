@@ -2,7 +2,7 @@
 .player.pos-a(:style="style", :class="{ walk: game.currentPlayer.walk }")
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs, computed, onBeforeUnmount, onMounted } from 'vue'
+import { defineComponent, reactive, toRefs, computed, onBeforeUnmount, onMounted, watch } from 'vue'
 import Game from '@/core/Game'
 import { personImg } from '@/config'
 import { off, on } from '@/vue3/utils/dom'
@@ -35,6 +35,14 @@ export default defineComponent({
 
 		const start = e => walk.start(e, state)
 		const stop = e => walk.stop(e, state, emit)
+
+		watch(
+			() => [props.x, props.y],
+			() => {
+				state.left = props.x
+				state.top = props.y
+			},
+		)
 
 		onBeforeUnmount(() => {
 			off(document.documentElement, 'keydown', start)

@@ -99,6 +99,20 @@ export default class Game extends Factory<Game> {
 		}
 	}
 
+	// 读档
+	async read() {
+		const data = await this.gameCache.get('game')
+		this.playerList = data.playerList.map(item => {
+			return new PlayerTask(item)
+		})
+		this.currentPlayer = new PlayerTask(data.currentPlayer)
+		this.monsterList = data.monsterList.map(item => {
+			return new MonsterTask(item)
+		})
+		this.currentMonster = data.currentMonster ? new MonsterTask(data.currentMonster) : void 0
+		this.pusLog('读档成功')
+	}
+
 	// 存档
 	save() {
 		const data = {
@@ -115,15 +129,7 @@ export default class Game extends Factory<Game> {
 	async start() {
 		const data = await this.gameCache.get('game')
 		if (data) {
-			this.playerList = data.playerList.map(item => {
-				return new PlayerTask(item)
-			})
-			this.currentPlayer = new PlayerTask(data.currentPlayer)
-			this.monsterList = data.monsterList.map(item => {
-				return new MonsterTask(item)
-			})
-			this.currentMonster = data.currentMonster ? new MonsterTask(data.currentMonster) : void 0
-			this.pusLog('读档成功')
+			await this.read()
 		} else {
 			this.createPlayer()
 		}
