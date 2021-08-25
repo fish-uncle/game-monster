@@ -1,11 +1,14 @@
 import Factory from '@/core/Base/factory'
 import PlayerTask from '@/core/Player/task'
 import MonsterTask from '@/core/Monster/task'
-import IndexDB from '@/core/IndexDB'
-import ImageCache from '@/core/IndexDB/imageCache'
+// import IndexDB from '@/core/IndexDB'
+// import ImageCache from '@/core/IndexDB/imageCache'
+// import GameCache from '@/core/IndexDB/gameCache'
 import LogTask from '@/core/Log/task'
 
-const db = new IndexDB()
+const md5 = require('md5')
+// const db = new IndexDB()
+
 export default class Game extends Factory<Game> {
 	debug = true
 	playerList: Array<PlayerTask> = []
@@ -15,9 +18,23 @@ export default class Game extends Factory<Game> {
 	width: number
 	height: number
 	status: 'WAITING' | 'PLAYING' | 'END' = 'WAITING'
-	imageCache: ImageCache = ImageCache.Instance(db)
+	// imageCache: ImageCache = ImageCache.Instance(db)
+	// gameCache: GameCache = GameCache.Instance(db)
 	logList: Array<LogTask> = []
+	hash: string
 
+	fightStart(monster: MonsterTask) {
+		this.currentPlayer.fight = true
+		this.currentPlayer.walk = false
+		this.currentPlayer.direction = 'stand'
+		this.currentMonster = monster
+		if (this.debug) {
+			this.pusLog(`战斗开始...`)
+			this.pusLog(monster.log)
+		}
+	}
+
+	// 移除一个player
 	removePlayer() {
 		for (let i = 0; i < this.playerList.length; i++) {
 			if (this.playerList[i].id === this.currentPlayer.id) {
@@ -84,9 +101,37 @@ export default class Game extends Factory<Game> {
 		}
 	}
 
+	// 存档
+	save() {
+		setInterval(() => {
+			const data = {
+				playerList: this.playerList,
+				currentPlayer: this.currentPlayer,
+				monsterList: this.monsterList,
+				currentMonster: this.currentMonster,
+			}
+			const hash = md5(data)
+			if (hash !== this.hash) {
+				this.hash = hash
+				// this.gameCache.add('game', data)
+			}
+		}, 1000)
+	}
+
 	// 游戏开始
-	start(): void {
+	async start() {
+		// const data = await this.gameCache.get('game')
+		// if (data) {
+		// 	this.playerList = data.playerList
+		// 	this.currentPlayer = data.currentPlayer
+		// 	this.monsterList = data.monsterList
+		// 	this.currentMonster = data.currentMonster
+		// 	this.pusLog('读档成功')
+		// } else {
+		// 	this.createPlayer()
+		// }
 		this.status = 'PLAYING'
+		this.save()
 		if (this.debug) {
 			this.pusLog('游戏开始……')
 		}

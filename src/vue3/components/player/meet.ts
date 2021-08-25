@@ -6,16 +6,17 @@ const state = reactive({ game })
 
 export default data => {
 	state.game.monsterList.forEach(item => {
-		const maxW = data.left + state.game.currentPlayer.width
-		const minW = data.left
-		const maxH = data.top + state.game.currentPlayer.height
-		const minH = data.top
-		console.log(minW, maxW, minH, maxH)
+		const maxW = item.x + item.width
+		const minW = item.x
+		const maxH = item.y + item.height
+		const minH = item.y
 		if (
-			((maxW > item.x && maxW < item.x + item.width) || (minW > item.x && minW < item.x + item.width)) &&
-			((maxH > item.y && maxH < item.y + item.height) || (minH > item.y && minH < item.y + item.height))
+			((maxW > data.left && maxW < data.left + state.game.currentPlayer.width) ||
+				(minW > data.left && minW < data.left + state.game.currentPlayer.width)) &&
+			((maxH > data.top && maxH < data.top + state.game.currentPlayer.height) ||
+				(minH > data.top && minH < data.top + state.game.currentPlayer.height))
 		) {
-			state.game.currentPlayer.fight = true
+			state.game.fightStart(item)
 		}
 	})
 }

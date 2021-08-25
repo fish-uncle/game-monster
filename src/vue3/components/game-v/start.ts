@@ -4,6 +4,5 @@ const game: Game = Game.Instance()
 const state = reactive({ game })
 
 export default () => {
-	state.game.createPlayer()
 	state.game.start()
 }
