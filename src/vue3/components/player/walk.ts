@@ -1,5 +1,5 @@
-import Game from '@/core/Game'
 import { reactive } from 'vue'
+import Game from '@/core/Game'
 import meet from './meet'
 
 const runKey = { down: 40, left: 37, up: 38, right: 39 }
@@ -61,12 +61,14 @@ const stop = (event, state, emit) => {
 		event.keyCode === runKey.up ||
 		event.keyCode === runKey.down
 	) {
-		state.game.currentPlayer.direction = 'stand'
-		state.game.currentPlayer.walk = false
-		if (state.game.debug) {
-			state.game.pusLog(
-				`${state.game.currentPlayer.x},${state.game.currentPlayer.y} 移动至 ${state.left},${state.top}`,
-			)
+		if (state.game.currentPlayer.walk) {
+			state.game.currentPlayer.direction = 'stand'
+			state.game.currentPlayer.walk = false
+			if (state.game.debug) {
+				state.game.pusLog(
+					`${state.game.currentPlayer.x},${state.game.currentPlayer.y} 移动至 ${state.left},${state.top}`,
+				)
+			}
 		}
 		emit('walk-stop', { x: state.left, y: state.top })
 	}

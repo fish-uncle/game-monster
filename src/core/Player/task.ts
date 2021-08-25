@@ -1,7 +1,7 @@
 import uuid from 'uuid/v4'
 import { firstName, secondName } from '@/config'
 
-export default class Player {
+export default class PlayerTask {
 	id: string // id
 	sex: 0 | 1 = 1 // 性别
 	name: string // 昵称
@@ -41,18 +41,43 @@ export default class Player {
 		return this.currentBlood > 0
 	}
 	// 当前血量
-	currentBlood: number
+	currentBlood = 0
 	// 总血量 = 体质 * 100
 	get totalBlood(): number {
 		return this.constitution * 100
 	}
 
-	constructor() {
-		this.id = uuid()
-		const name =
-			firstName[Math.floor(Math.random() * firstName.length)] +
-			secondName[Math.floor(Math.random() * secondName.length)]
-		this.name = name
-		this.currentBlood = this.totalBlood
+	constructor(obj?: PlayerTask) {
+		if (obj) {
+			this.id = obj.id
+			this.sex = obj.sex
+			this.name = obj.name
+			this.width = obj.width
+			this.height = obj.height
+			this.x = obj.x
+			this.y = obj.y
+			this.walk = obj.walk
+			this.direction = obj.direction
+			this.level = obj.level
+			this.gold = obj.gold
+			this.experience = obj.experience
+			this.fight = obj.fight
+			this.constitution = obj.constitution
+			this.power = obj.power
+			this.wisdom = obj.wisdom
+			this.toughness = obj.toughness
+			this.resistance = obj.resistance
+			this.fightType = obj.fightType
+			this.speed = obj.speed
+			this.currentBlood = obj.currentBlood
+		} else {
+			this.id = uuid()
+			const name =
+				firstName[Math.floor(Math.random() * firstName.length)] +
+				secondName[Math.floor(Math.random() * secondName.length)]
+			this.name = name
+			this.fightType = 'power'
+			this.currentBlood = this.totalBlood
+		}
 	}
 }

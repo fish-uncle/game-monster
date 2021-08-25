@@ -1,24 +1,18 @@
 <template lang="pug">
 .game-bg.pos-r(:style="style")
 	slot
-	.game-no-start-bg.pos-a.fn-flex(v-if="game.status === 'WAITING'")
-		.game-start-container
-			.game-start-btn.pos-a.cursor-pointer(@click="start") 开始
-	.game-start-bg.pos-a(v-if="game.status === 'PLAYING'")
-		player(v-if="game.currentPlayer", :x="game.currentPlayer.x", :y="game.currentPlayer.y", @walk-stop="walkStop")
-		monster(v-for="item in game.monsterList", v-bind="item", :key="item.id")
+	game-waiting(v-if="game.status === 'WAITING'")
+	game-playing(v-if="game.status === 'PLAYING'")
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed, onMounted } from 'vue'
 import Game from '@/core/Game'
-import start from './start'
-import walkStop from './walkStop'
-import player from '@/vue3/components/player/index.vue'
-import monster from '@/vue3/components/monster/index.vue'
+import gamePlaying from '@/vue3/components/game-playing/index.vue'
+import gameWaiting from '@/vue3/components/game-waitting/index.vue'
 
 export default defineComponent({
 	name: 'game-v',
-	components: { player, monster },
+	components: { gamePlaying, gameWaiting },
 	setup() {
 		const game: Game = Game.Instance()
 		const state = reactive({ game })
@@ -36,9 +30,7 @@ export default defineComponent({
 
 		return {
 			...toRefs(state),
-			start,
 			style,
-			walkStop,
 		}
 	},
 })

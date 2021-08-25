@@ -8,7 +8,10 @@ ul.tool.fn-flex(:style="style")
 		:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 删除角色
 	li.fn-flex.cursor-pointer(@click="log", :class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 属性
 	li.fn-flex.cursor-pointer(@click="openStore", :class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 商店
-	li.fn-flex.cursor-pointer(@click="createMonster", :class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 生成怪物
+	li.fn-flex.cursor-pointer(
+		@click="createMonster",
+		:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 生成怪物
+	li.fn-flex.cursor-pointer(@click="save", :class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 存档
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed } from 'vue'
@@ -18,9 +21,10 @@ import openStore from './openStore'
 import createMonster from './createMonster'
 import removePlayer from './removePlayer'
 import log from './log'
+import save from './save'
 
 export default defineComponent({
-	name: 'player',
+	name: 'tool',
 	setup() {
 		const game: Game = Game.Instance()
 		const state = reactive({ game })
@@ -39,6 +43,7 @@ export default defineComponent({
 			openStore,
 			createMonster,
 			log,
+			save,
 		}
 	},
 })

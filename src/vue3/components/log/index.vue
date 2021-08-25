@@ -34,13 +34,13 @@ export default defineComponent({
 	li {
 		align-items: center;
 		margin-bottom: 8px;
-		
+
 		span {
 			padding-left: 10px;
 			margin-right: 10px;
 			color: #333;
 		}
-		p{
+		p {
 			color: #295a4c;
 		}
 	}

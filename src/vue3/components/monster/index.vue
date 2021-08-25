@@ -6,7 +6,7 @@ import { defineComponent, reactive, toRefs, computed } from 'vue'
 import Game from '@/core/Game'
 
 export default defineComponent({
-	name: 'player',
+	name: 'monster',
 	props: {
 		x: {
 			type: Number,

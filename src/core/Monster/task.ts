@@ -1,12 +1,12 @@
 import uuid from 'uuid/v4'
 
-export default class Monster{
+export default class Monster {
 	id: string // id
 	name: string // 昵称
-	
+
 	width = 20 // 怪物大小
 	height = 20
-	
+
 	x = 0 // x坐标
 	y = 0 // y坐标
 
@@ -38,11 +38,46 @@ export default class Monster{
 		return this.constitution * 100
 	}
 
-	constructor(obj: { x: number; y: number; level: number }) {
-		this.id = uuid()
-		this.name = 'obj.name'
-		this.x = obj.x
-		this.y = obj.y
-		this.currentBlood = this.totalBlood
+	constructor(obj: {
+		height?: number
+		width?: number
+		id?: string
+		name?: string
+		fightType?: 'power' | 'wisdom'
+		x: number
+		y: number
+		level: number
+		constitution?: number
+		power?: number
+		wisdom?: number
+		toughness?: number
+		resistance?: number
+		currentBlood?: number
+		unAlive?: any
+	}) {
+		if (obj.fightType) {
+			this.id = obj.id
+			this.name = obj.name
+			this.width = obj.width
+			this.height = obj.height
+			this.x = obj.x
+			this.y = obj.y
+			this.level = obj.level
+			this.unAlive = obj.unAlive
+			this.constitution = obj.constitution
+			this.power = obj.power
+			this.wisdom = obj.wisdom
+			this.toughness = obj.toughness
+			this.resistance = obj.resistance
+			this.fightType = obj.fightType
+			this.currentBlood = obj.currentBlood
+		} else {
+			this.id = uuid()
+			this.name = '怪物'
+			this.x = obj.x
+			this.y = obj.y
+			this.fightType = 'power'
+			this.currentBlood = this.totalBlood
+		}
 	}
 }

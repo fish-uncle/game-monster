@@ -22,7 +22,7 @@ export default class IndexDB extends Dexie {
 			imageCache: '++id,picture,name',
 		})
 		this.version(1).stores({
-			imageCache: '++id,data,name',
+			gameCache: '++id,data,name',
 		})
 		this.imageCache = this.table('imageCache')
 		this.gameCache = this.table('gameCache')
