@@ -2,7 +2,7 @@
 .monster.pos-a(:style="style")
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs, computed, } from 'vue'
+import { defineComponent, reactive, toRefs, computed } from 'vue'
 import Game from '@/core/Game'
 
 export default defineComponent({
@@ -14,6 +14,12 @@ export default defineComponent({
 		y: {
 			type: Number,
 		},
+		width: {
+			type: Number,
+		},
+		height: {
+			type: Number,
+		},
 	},
 	setup(props) {
 		const game: Game = Game.Instance()
@@ -23,6 +29,8 @@ export default defineComponent({
 			return {
 				left: `${props.x}px`,
 				top: `${props.y}px`,
+				width: `${props.width}px`,
+				height: `${props.height}px`,
 			}
 		})
 
@@ -37,7 +45,6 @@ export default defineComponent({
 .monster {
 	top: 0;
 	left: 0;
-	width: 20px;
-	height: 20px;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 </style>

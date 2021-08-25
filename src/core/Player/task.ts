@@ -18,13 +18,14 @@ export default class Player {
 	gold = 0 // 金币数
 	experience = 0 // 当前经验值
 
-	constitution = 1 // 体质
-	power = 1 // 力量
-	wisdom = 1 // 智慧
-	toughness = 1 // 韧性
-	resistance = 1 // 抗性
+	fight = false // 战斗状态
+	constitution = 2 // 体质
+	power = 2 // 力量
+	wisdom = 2 // 智慧
+	toughness = 2 // 韧性
+	resistance = 2 // 抗性
 	fightType: 'power' | 'wisdom' // 攻击类型：力量/智慧
-	speed = 1 // 敏捷
+	speed = 2 // 敏捷
 
 	get log() {
 		return `人物信息 昵称：${this.name} 等级：${this.level} 当前经验值：${this.experience} 金币数：${this.gold} 体质：${this.constitution} 力量：${this.power} 智慧：${this.wisdom} 韧性：${this.toughness} 抗性：${this.resistance}`

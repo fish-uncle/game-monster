@@ -3,7 +3,10 @@ import uuid from 'uuid/v4'
 export default class Monster{
 	id: string // id
 	name: string // 昵称
-
+	
+	width = 20 // 怪物大小
+	height = 20
+	
 	x = 0 // x坐标
 	y = 0 // y坐标
 

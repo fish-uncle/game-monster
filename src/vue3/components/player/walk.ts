@@ -1,12 +1,13 @@
 import Game from '@/core/Game'
 import { reactive } from 'vue'
+import meet from './meet'
 
 const runKey = { down: 40, left: 37, up: 38, right: 39 }
 const game: Game = Game.Instance()
 const state = reactive({ game })
 
 const start = (event, data) => {
-	if (state.game.currentPlayer.alive) {
+	if (state.game.currentPlayer.alive && !state.game.currentPlayer.fight) {
 		if (
 			event.keyCode === runKey.left ||
 			event.keyCode === runKey.right ||
@@ -49,6 +50,7 @@ const start = (event, data) => {
 				state.game.currentPlayer.direction = 'down'
 				break
 		}
+		meet(data)
 	}
 }
 

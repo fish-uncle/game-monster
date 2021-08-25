@@ -45,8 +45,8 @@ export default class Game extends Factory<Game> {
 	// 创建一个monster
 	createMonster() {
 		const monster = new MonsterTask({
-			x: 0,
-			y: 0,
+			x: Math.round(Math.random() * this.width),
+			y: Math.round(Math.random() * this.height),
 			level: this.currentPlayer.level,
 		})
 		this.monsterList = [...this.monsterList, monster]
