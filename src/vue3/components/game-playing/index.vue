@@ -8,7 +8,6 @@ import { defineComponent, reactive, toRefs } from 'vue'
 import Game from '@/core/Game'
 import player from '@/vue3/components/player/index.vue'
 import monster from '@/vue3/components/monster/index.vue'
-import walkStop from './walkStop'
 
 export default defineComponent({
 	name: 'game-playing',
@@ -16,6 +15,11 @@ export default defineComponent({
 	setup() {
 		const game: Game = Game.Instance()
 		const state = reactive({ game })
+
+		const walkStop = ({ x, y }) => {
+			state.game.currentPlayer.x = x
+			state.game.currentPlayer.y = y
+		}
 
 		return {
 			...toRefs(state),
