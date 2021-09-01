@@ -29,6 +29,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .game-bg {
 	height: 100%;
-	background-image: url('../../../imgs/map-bg.jpg');
+	background-image: url('../../imgs/map-bg.jpg');
 }
 </style>

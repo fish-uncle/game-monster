@@ -47,6 +47,12 @@ export default class PlayerTask {
 		return this.constitution * 100
 	}
 
+	// 复活
+	reborn() {
+		this.x = 0
+		this.y = 0
+	}
+
 	constructor(obj?: PlayerTask) {
 		if (obj) {
 			this.id = obj.id
