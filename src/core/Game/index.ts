@@ -83,6 +83,7 @@ export default class Game extends Factory<Game> {
 	// 复活
 	reborn() {
 		this.status = 'PLAYING'
+		this.currentPlayer.reborn()
 		// todo 死亡惩罚
 	}
 

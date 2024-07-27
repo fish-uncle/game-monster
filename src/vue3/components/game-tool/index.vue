@@ -26,7 +26,7 @@ import save from './save'
 import read from './read'
 
 export default defineComponent({
-	name: 'tool',
+	name: 'game-tool',
 	setup() {
 		const game: Game = Game.Instance()
 		const state = reactive({ game })

@@ -1,21 +1,25 @@
 <template lang="pug">
 .game-start-bg.pos-a
-	player(v-if="game.currentPlayer", :x="game.currentPlayer.x", :y="game.currentPlayer.y", @walk-stop="walkStop")
-	monster(v-for="item in game.monsterList", v-bind="item", :key="item.id")
+	game-player(v-if="game.currentPlayer", :x="game.currentPlayer.x", :y="game.currentPlayer.y", @walk-stop="walkStop")
+	game-monster(v-for="item in game.monsterList", v-bind="item", :key="item.id")
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import Game from '@/core/Game'
-import player from '@/vue3/components/player/index.vue'
-import monster from '@/vue3/components/monster/index.vue'
-import walkStop from './walkStop'
+import gamePlayer from '@/vue3/components/game-player/index.vue'
+import gameMonster from '@/vue3/components/game-monster/index.vue'
 
 export default defineComponent({
 	name: 'game-playing',
-	components: { player, monster },
+	components: { gamePlayer, gameMonster },
 	setup() {
 		const game: Game = Game.Instance()
 		const state = reactive({ game })
+
+		const walkStop = ({ x, y }) => {
+			state.game.currentPlayer.x = x
+			state.game.currentPlayer.y = y
+		}
 
 		return {
 			...toRefs(state),

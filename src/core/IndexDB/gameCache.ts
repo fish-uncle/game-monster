@@ -25,12 +25,20 @@ export default class GameCache extends BaseCache {
 	}
 
 	async get(name: string): Promise<any> {
-		if (!name) return
-		const collection: GameCacheDB = await this.db.gameCache.get({ name })
-		if (collection) {
-			return JSON.parse(collection.data)
-		} else {
-			return null
-		}
+		return new Promise(resolve => {
+			if (!name) resolve(null)
+			this.db.gameCache
+				.get({ name })
+				.then(collection => {
+					if (collection) {
+						resolve(JSON.parse(collection.data))
+					} else {
+						resolve(null)
+					}
+				})
+				.catch(() => {
+					resolve(null)
+				})
+		})
 	}
 }

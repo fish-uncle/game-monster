@@ -6,15 +6,16 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import Game from '@/core/Game'
-import start from './start'
-import gamePlaying from '@/vue3/components/game-playing/index.vue'
 
 export default defineComponent({
 	name: 'game-waitting',
-	components: { gamePlaying },
 	setup() {
 		const game: Game = Game.Instance()
 		const state = reactive({ game })
+
+		const start = () => {
+			state.game.start()
+		}
 
 		return {
 			...toRefs(state),
