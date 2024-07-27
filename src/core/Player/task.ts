@@ -1,4 +1,4 @@
-import uuid from 'uuid/v4'
+import { v4 as uuidv4 } from 'uuid'
 import { firstName, secondName } from '@/config'
 
 export default class PlayerTask {
@@ -71,7 +71,7 @@ export default class PlayerTask {
 			this.speed = obj.speed
 			this.currentBlood = obj.currentBlood
 		} else {
-			this.id = uuid()
+			this.id = uuidv4()
 			const name =
 				firstName[Math.floor(Math.random() * firstName.length)] +
 				secondName[Math.floor(Math.random() * secondName.length)]

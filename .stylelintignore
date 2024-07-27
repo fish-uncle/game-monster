@@ -1,0 +1,10 @@
+node_modules/*
+.vscode/*
+public/*
+
+/dist/
+
+# 其他类型文件
+*.js
+*.jpg
+*.woff

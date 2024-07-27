@@ -12,9 +12,8 @@
 	"arrowParens": "avoid",
 	"endOfLine": "lf",
 	"embeddedLanguageFormatting": "auto",
-	"pugBracketSpacing": "true",
 	"pugSingleQuote": false,
 	"pugAttributeSeparator": "always",
-	"pugClosingBracketPosition": "last-line",
-	"htmlWhitespaceSensitivity": "ignore"
+	"htmlWhitespaceSensitivity": "ignore",
+	"preferSpread": false
 }
