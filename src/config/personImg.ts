@@ -1,8 +1,8 @@
-import stand from '../imgs/person/person.png'
-import down from '../imgs/person/person-down.png'
-import left from '../imgs/person/person-left.png'
-import right from '../imgs/person/person-right.png'
-import up from '../imgs/person/person-up.png'
+import stand from '@/vue3/imgs/person/person.png'
+import down from '@/vue3/imgs/person/person-down.png'
+import left from '@/vue3/imgs/person/person-left.png'
+import right from '@/vue3/imgs/person/person-right.png'
+import up from '@/vue3/imgs/person/person-up.png'
 
 export default {
 	stand,

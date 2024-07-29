@@ -7,7 +7,7 @@ const game: Game = Game.Instance()
 const state = reactive({ game })
 
 const start = (event, data) => {
-	if (state.game.currentPlayer.alive && !state.game.currentPlayer.fight) {
+	if (state.game.currentPlayer?.playerAttribute.alive && !state.game.currentPlayer.fight) {
 		if (
 			event.keyCode === runKey.left ||
 			event.keyCode === runKey.right ||

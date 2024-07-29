@@ -17,7 +17,7 @@ export default class Monster {
 	}
 
 	get log() {
-		return `怪物信息 昵称：${this.name} 等级：${this.monsterAttribute.level} 坐标：${this.x},${this.y} 体质：${this.monsterAttribute.constitution} 力量：${this.monsterAttribute.power} 智慧：${this.monsterAttribute.wisdom} 韧性：${this.monsterAttribute.toughness} 抗性：${this.monsterAttribute.resistance}`
+		return [`怪物信息 昵称：${this.name} 坐标：${this.x},${this.y}`, this.monsterAttribute.log]
 	}
 
 	// 当前存活状态
@@ -25,11 +25,9 @@ export default class Monster {
 		return this.monsterAttribute.currentBlood > 0
 	}
 
-	constructor(obj: { id?: string; name?: string; x: number; y: number; level: number }) {
-		this.id = obj.id
-		this.name = obj.name
-		this.x = obj.x
-		this.y = obj.y
+	constructor(x, y) {
+		this.x = x
+		this.y = y
 		this.id = uuidv4()
 		this.name = '怪物'
 		this.monsterAttribute = new MonsterAttribute()

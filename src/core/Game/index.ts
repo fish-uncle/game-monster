@@ -59,20 +59,25 @@ export default class Game extends Factory<Game> {
 
 	// 创建一个monster
 	createMonster() {
-		const monster = new MonsterTask({
-			x: Math.round(Math.random() * this.width),
-			y: Math.round(Math.random() * this.height),
-			level: this.currentPlayer.level,
-		})
+		const x = Math.round(Math.random() * this.width)
+		const y = Math.round(Math.random() * this.height)
+		const monster = new MonsterTask(x, y)
 		this.monsterList = [...this.monsterList, monster]
 		if (this.debug) {
-			this.pusLog(`创建怪物：${monster.log}`)
+			this.pusLog(monster.log)
 		}
 	}
 
 	// 添加日志
-	pusLog(message: string): void {
-		this.logList.push(new LogTask(message))
+	pusLog(message: string[] | string): void {
+		if (typeof message === 'string') {
+			this.logList.push(new LogTask(message))
+		} else {
+			message.forEach(item => {
+				console.log(item)
+				this.logList.push(new LogTask(item))
+			})
+		}
 	}
 
 	// 清空日志
