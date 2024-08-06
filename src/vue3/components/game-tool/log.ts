@@ -6,5 +6,5 @@ const state = reactive({ game })
 
 export default () => {
 	if (!state.game.currentPlayer || state.game.status === 'WAITING') return
-	state.game.pusLog(state.game.currentPlayer.log)
+	state.game.pushLog(state.game.currentPlayer.log)
 }

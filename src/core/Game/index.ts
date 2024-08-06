@@ -1,10 +1,10 @@
 import Factory from '@/core/Base/factory'
-import PlayerTask from '@/core/Player/task'
-import MonsterTask from '@/core/Monster/task'
+import PlayerTask from '@/core/Player'
+import MonsterTask from '@/core/Monster'
 import IndexDB from '@/core/IndexDB'
 import ImageCache from '@/core/IndexDB/imageCache'
 import GameCache from '@/core/IndexDB/gameCache'
-import LogTask from '@/core/Log/task'
+import LogTask from '@/core/Log'
 
 const db = new IndexDB()
 
@@ -14,34 +14,45 @@ export default class Game extends Factory<Game> {
 	monsterList: Array<MonsterTask> = []
 	currentPlayer: PlayerTask | null = null
 	currentMonster: MonsterTask | null = null
-	width: number
-	height: number
+	width: number = 0
+	height: number = 0
 	status: 'WAITING' | 'PLAYING' | 'END' = 'WAITING'
 	imageCache: ImageCache = ImageCache.Instance(db)
 	gameCache: GameCache = GameCache.Instance(db)
 	logList: Array<LogTask> = []
 
+	get containerStyle() {
+		return {
+			width: `${this.width}px`,
+			height: `${this.height}px`,
+		}
+	}
+
 	fightStart(monster: MonsterTask) {
-		this.currentPlayer.fight = true
-		this.currentPlayer.walk = false
-		this.currentPlayer.direction = 'stand'
-		this.currentMonster = monster
-		if (this.debug) {
-			this.pusLog(`战斗开始...`)
-			this.pusLog(monster.log)
+		if (this.currentPlayer) {
+			this.currentPlayer.fight = true
+			this.currentPlayer.walk = false
+			this.currentPlayer.direction = 'stand'
+			this.currentMonster = monster
+			if (this.debug) {
+				this.pushLog(`战斗开始...`)
+				this.pushLog(monster.log)
+			}
 		}
 	}
 
 	// 移除一个player
 	removePlayer() {
 		for (let i = 0; i < this.playerList.length; i++) {
-			if (this.playerList[i].id === this.currentPlayer.id) {
-				this.playerList.splice(i, 1)
-				if (this.debug) {
-					this.pusLog(`删除角色：${this.currentPlayer.log}`)
+			if (this.currentPlayer) {
+				if (this.playerList[i].id === this.currentPlayer.id) {
+					this.playerList.splice(i, 1)
+					if (this.debug) {
+						this.pushLog(`删除角色：${this.currentPlayer.log}`)
+					}
+					this.currentPlayer = null
+					i--
 				}
-				this.currentPlayer = null
-				i--
 			}
 		}
 		this.playerList = [...this.playerList]
@@ -53,7 +64,7 @@ export default class Game extends Factory<Game> {
 		this.playerList = [...this.playerList, player]
 		this.currentPlayer = player
 		if (this.debug) {
-			this.pusLog(`创建角色：${player.log}`)
+			this.pushLog(`创建角色：${player.log}`)
 		}
 	}
 
@@ -64,12 +75,12 @@ export default class Game extends Factory<Game> {
 		const monster = new MonsterTask(x, y)
 		this.monsterList = [...this.monsterList, monster]
 		if (this.debug) {
-			this.pusLog(monster.log)
+			this.pushLog(monster.log)
 		}
 	}
 
 	// 添加日志
-	pusLog(message: string[] | string): void {
+	pushLog(message: string[] | string): void {
 		if (typeof message === 'string') {
 			this.logList.push(new LogTask(message))
 		} else {
@@ -88,7 +99,9 @@ export default class Game extends Factory<Game> {
 	// 复活
 	reborn() {
 		this.status = 'PLAYING'
-		this.currentPlayer.reborn()
+		if (this.currentPlayer) {
+			this.currentPlayer.reborn()
+		}
 		// todo 死亡惩罚
 	}
 
@@ -99,36 +112,28 @@ export default class Game extends Factory<Game> {
 			if (obj.width) this.width = obj.width
 			if (obj.height) this.height = obj.height
 			if (this.debug) {
-				this.pusLog('初始化游戏成功……')
-				this.pusLog(`宽度: ${obj.width}px 高度: ${obj.height}px`)
+				this.pushLog('初始化游戏成功……')
+				this.pushLog(`宽度: ${obj.width}px 高度: ${obj.height}px`)
 			}
 		}
 	}
 
 	// 读档
 	async read() {
-		const data = await this.gameCache.get('game')
-		this.playerList = data.playerList.map(item => {
-			return new PlayerTask(item)
-		})
-		this.currentPlayer = new PlayerTask(data.currentPlayer)
-		this.monsterList = data.monsterList.map(item => {
-			return new MonsterTask(item)
-		})
-		this.currentMonster = data.currentMonster ? new MonsterTask(data.currentMonster) : void 0
-		this.pusLog('读档成功')
+		this.pushLog('开发中')
 	}
 
 	// 存档
 	save() {
-		const data = {
-			playerList: this.playerList,
-			currentPlayer: this.currentPlayer,
-			monsterList: this.monsterList,
-			currentMonster: this.currentMonster,
-		}
-		this.gameCache.add('game', data)
-		this.pusLog('存档成功')
+		// const data = {
+		// 	playerList: this.playerList,
+		// 	currentPlayer: this.currentPlayer,
+		// 	monsterList: this.monsterList,
+		// 	currentMonster: this.currentMonster,
+		// }
+		// this.gameCache.add('game', data)
+		// this.pushLog('存档成功')
+		this.pushLog('开发中')
 	}
 
 	// 游戏开始
@@ -141,7 +146,7 @@ export default class Game extends Factory<Game> {
 		}
 		this.status = 'PLAYING'
 		if (this.debug) {
-			this.pusLog('游戏开始……')
+			this.pushLog('游戏开始……')
 		}
 	}
 }

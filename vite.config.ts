@@ -2,14 +2,19 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import * as path from 'path'
 import autoprefixer from 'autoprefixer'
-import { createVitePlugins } from './build/plugins'
+import legacy from '@vitejs/plugin-legacy'
 
 const resolve = (p: string) => path.resolve(__dirname, p)
-export default ({ mode }) => {
-	const __DEV__ = mode === 'development'
+export default () => {
 	return defineConfig({
-		base: __DEV__ ? './' : '/',
-		plugins: [...createVitePlugins()],
+		base: './',
+		plugins: [
+			vue(),
+			legacy({
+				targets: ['ie >= 11'],
+				additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+			}),
+		],
 		resolve: {
 			alias: {
 				'@': resolve('src'),

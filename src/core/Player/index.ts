@@ -1,12 +1,14 @@
 import { v4 as uuidv4 } from 'uuid'
 import { firstName, secondName } from '@/config'
 import PlayerAttribute from './attribute'
+import PlayerBag from './bag'
 
 export default class PlayerTask {
 	id: string // id
 	sex: 0 | 1 = 1 // 性别
 	name: string // 昵称
 	playerAttribute: PlayerAttribute
+	playerBag: PlayerBag
 
 	width = 32 // 人物大小
 	height = 48
@@ -16,7 +18,6 @@ export default class PlayerTask {
 	walk = false // 行走状态
 	direction: 'stand' | 'down' | 'left' | 'up' | 'right' = 'stand' // 行走方向
 
-	gold = 0 // 金币数
 	experience = 0 // 当前经验值
 
 	fight = false // 战斗状态
@@ -24,8 +25,9 @@ export default class PlayerTask {
 
 	get log() {
 		return [
-			`人物信息 昵称：${this.name} 当前经验值：${this.experience} 金币数：${this.gold}`,
+			`人物信息 昵称：${this.name} 当前经验值：${this.experience}`,
 			this.playerAttribute.log,
+			this.playerBag.log,
 		]
 	}
 
@@ -47,5 +49,6 @@ export default class PlayerTask {
 			secondName[Math.floor(Math.random() * secondName.length)]
 		this.name = name
 		this.playerAttribute = new PlayerAttribute()
+		this.playerBag = new PlayerBag()
 	}
 }

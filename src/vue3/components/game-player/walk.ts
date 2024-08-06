@@ -65,7 +65,7 @@ const stop = (event, state, emit) => {
 			state.game.currentPlayer.direction = 'stand'
 			state.game.currentPlayer.walk = false
 			if (state.game.debug) {
-				state.game.pusLog(
+				state.game.pushLog(
 					`${state.game.currentPlayer.x},${state.game.currentPlayer.y} 移动至 ${state.left},${state.top}`,
 				)
 			}

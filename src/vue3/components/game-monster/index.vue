@@ -1,12 +1,12 @@
-<template lang="pug">
-.monster.pos-a(:style="style")
+<template>
+	<div class="monster pos-a" :style="style"></div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed } from 'vue'
 import Game from '@/core/Game'
 
 export default defineComponent({
-	name: 'game-monster',
+	name: 'GameMonster',
 	props: {
 		x: {
 			type: Number,

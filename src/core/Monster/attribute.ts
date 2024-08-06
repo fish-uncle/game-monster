@@ -1,4 +1,4 @@
-import Attribute from '../Attribute/task'
+import Attribute from '../Attribute'
 
 export default class MonsterAttribute extends Attribute {
 	constructor() {

@@ -1,29 +1,19 @@
-<template lang="pug">
-ul.log-box(:style="style")
-	li.fn-flex(v-for="item in game.logList")
-		span {{ item.date }}
-		p {{ item.message }}
+<template>
+	<ul class="log-box" :style="{ width: `${game.width}px` }">
+		<li v-for="(item, index) in game.logList" :key="index" class="fn-flex">
+			<span>{{ item.date }}</span>
+			<p>{{ item.message }}</p>
+		</li>
+	</ul>
 </template>
-<script lang="ts">
-import { computed, defineComponent, reactive, toRefs } from 'vue'
+<script lang="ts" setup>
+import { ref, Ref } from 'vue'
 import Game from '@/core/Game'
 
-export default defineComponent({
-	name: 'game-log',
-	setup() {
-		const game: Game = Game.Instance()
-		const state = reactive({ game })
-		const style = computed(() => {
-			return {
-				width: state.game.width + 'px',
-			}
-		})
-		return {
-			...toRefs(state),
-			style,
-		}
-	},
+defineOptions({
+	name: 'GameLog',
 })
+const game: Ref<Game> = ref(Game.Instance())
 </script>
 <style lang="scss" scoped>
 .log-box {

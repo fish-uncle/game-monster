@@ -1,30 +1,16 @@
-<template lang="pug">
-.game-bg.pos-r(:style="style")
-	slot
+<template>
+	<div class="game-bg pos-r" :style="game.containerStyle">
+		<slot></slot>
+	</div>
 </template>
-<script lang="ts">
-import { defineComponent, reactive, toRefs, computed } from 'vue'
+<script lang="ts" setup>
+import { Ref, ref } from 'vue'
 import Game from '@/core/Game'
 
-export default defineComponent({
-	name: 'game-v',
-	setup() {
-		const game: Game = Game.Instance()
-		const state = reactive({ game })
-
-		const style = computed(() => {
-			return {
-				width: state.game.width + 'px',
-				height: state.game.height + 'px',
-			}
-		})
-
-		return {
-			...toRefs(state),
-			style,
-		}
-	},
+defineOptions({
+	name: 'GameBg',
 })
+const game: Ref<Game> = ref(Game.Instance())
 </script>
 <style lang="scss" scoped>
 .game-bg {

@@ -1,4 +1,6 @@
-export default class PlayerAttribute {
+// 属性
+
+export default class Attribute {
 	constitution = 2 // 体质
 	power = 2 // 力量
 	wisdom = 2 // 智慧

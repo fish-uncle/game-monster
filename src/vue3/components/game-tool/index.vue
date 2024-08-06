@@ -1,21 +1,58 @@
-<template lang="pug">
-ul.tool.fn-flex(:style="style")
-	li.fn-flex.cursor-pointer(@click="log", :class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 属性
-	li.fn-flex.cursor-pointer(@click="openStore", :class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 商店
-	li.fn-flex.cursor-pointer(
-		@click="createMonster",
-		:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 创建怪物
-	li.fn-flex.cursor-pointer(
-		@click="createPlayer",
-		:class="{ disabled: game.currentPlayer || game.status === 'WAITING' }") 创建角色
-	li.fn-flex.cursor-pointer(
-		@click="removePlayer",
-		:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 删除角色
-	li.fn-flex.cursor-pointer(@click="save", :class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 存档
-	li.fn-flex.cursor-pointer(@click="read", :class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }") 读档
+<template>
+	<ul class="tool fn-flex" :style="{ width: `${game.width}px` }">
+		<li
+			class="fn-flex cursor-pointer"
+			:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }"
+			@click="log"
+		>
+			属性
+		</li>
+		<li
+			class="fn-flex cursor-pointer"
+			:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }"
+			@click="openStore"
+		>
+			商店
+		</li>
+		<li
+			class="fn-flex cursor-pointer"
+			:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }"
+			@click="createMonster"
+		>
+			创建怪物
+		</li>
+		<li
+			class="fn-flex cursor-pointer"
+			:class="{ disabled: game.currentPlayer || game.status === 'WAITING' }"
+			@click="createPlayer"
+		>
+			创建角色
+		</li>
+		<li
+			class="fn-flex cursor-pointer"
+			:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }"
+			@click="removePlayer"
+		>
+			删除角色
+		</li>
+		<li
+			class="fn-flex cursor-pointer"
+			:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }"
+			@click="save"
+		>
+			存档
+		</li>
+		<li
+			class="fn-flex cursor-pointer"
+			:class="{ disabled: !game.currentPlayer || game.status === 'WAITING' }"
+			@click="read"
+		>
+			读档
+		</li>
+	</ul>
 </template>
-<script lang="ts">
-import { defineComponent, reactive, toRefs, computed } from 'vue'
+<script lang="ts" setup>
+import { ref, Ref } from 'vue'
 import Game from '@/core/Game'
 import createPlayer from './createPlayer'
 import openStore from './openStore'
@@ -25,31 +62,11 @@ import log from './log'
 import save from './save'
 import read from './read'
 
-export default defineComponent({
-	name: 'game-tool',
-	setup() {
-		const game: Game = Game.Instance()
-		const state = reactive({ game })
-
-		const style = computed(() => {
-			return {
-				width: state.game.width + 'px',
-			}
-		})
-
-		return {
-			...toRefs(state),
-			style,
-			createPlayer,
-			removePlayer,
-			openStore,
-			createMonster,
-			log,
-			save,
-			read,
-		}
-	},
+defineOptions({
+	name: 'GameTool',
 })
+
+const game: Ref<Game> = ref(Game.Instance())
 </script>
 <style lang="scss" scoped>
 .tool {
